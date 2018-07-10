@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Image Annotation</title>
+		<style>
+			h1 {
+				text-align: center;
+				margin: 20px 0;
+				padding-bottom: 20px;
+			}
+			.container {
+				width: 980px;
+				margin: 0 auto;
+			}
+			.annotatable {
+				float: left;
+			}
+			.text-output {
+				margin-left: 10px;
+				float: left;
+				width: 460px;
+				min-height: 250px;
+			}
+			.btn-edit {
+				color: #337ab7;
+			}
+            #image { height: 250px; width: 400px;
+                -webkit-transition: all 2s ease;
+                -moz-transition: all 2s ease;
+                -ms-transition: all 2s ease;
+                transition: all 2s ease; }
+        </style>
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<h1>Image Annotation Test</h1>
+			</header>
+            <button onClick="resize(1)">Zoom out</button>
+            <button onClick="resize(-1)">Zoom in</button>
+			<div id="app">
+				<annotatable :annotations.sync="annotations" :options="options" input="input-menu">
+					<img id="image" draggable="false" src="image/sampleimg.jpg" alt="Image logo">
+				</annotatable>
+				<output :annotations="annotations"></Output>
+			</div>
+		</div>
+        <script>
+            function resize(direction) {
+                var delta = 100 * direction;
+
+                var element = document.getElementById('image');
+                var positionInfo = element.getBoundingClientRect();
+
+                element.style.width = positionInfo.width+delta+'px';
+                element.style.height = positionInfo.height+delta+'px';
+            }
+        </script>
+		<script>
+		var annotationData = {
+			annotations: [
+//				{
+//					id: '12345678',
+//					x: 285,
+//					y: 54,
+//					width: 112,
+//					height: 188,
+//					label: 'Polar bear',
+//					status: 'labeled'
+//				}
+			],
+			options: {
+                'Cat':['Leopard cat','cat plush','Persian'],
+                'raging':['Brown bear','Polar Bear','Giant Panda'],
+                'strong':['Siberian tiger','South China Tiger','Bengal tiger'],
+			},
+		};
+		</script>
+
+		<script src="../dist/build.js"></script>
+	</body>
+</html>
